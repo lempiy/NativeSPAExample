@@ -9,9 +9,10 @@ map = [
 ]
 */
 export class Router {
-    constructor(outlet, map) {
+    constructor(outlet, map, app) {
         this.outlet = outlet
         this.map = map
+        this.app = app
     }
     map
     hash
@@ -21,9 +22,11 @@ export class Router {
         this.hash = window.location.hash;
         this.map.forEach(route => {
             if (route.component) {
-                route.component = new route.component(
-                    document.querySelector('#'+route.id)
-                )
+                route.component = new route.component({
+                    template: document.querySelector('#'+route.id), 
+                    app: this.app, 
+                    id: route.id
+                })
             }
             let levels = route.path.split("/")
             if (!levels[0] && levels.length > 1) {

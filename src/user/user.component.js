@@ -4,8 +4,8 @@ import {users} from '../store/store.js';
 
 
 export class UserComponent extends Component {
-    constructor(template) {
-        super(template)
+    constructor(conf) {
+        super(conf)
     }
 
     onInit() {
@@ -15,7 +15,7 @@ export class UserComponent extends Component {
         let usr = users.find(u => u.index == +id)
         let html = `
         <article>
-            <img src="${usr.picture}">
+            <img class="face" src="${usr.picture}">
             <table>
                 <tbody>
                     <tr>
@@ -55,6 +55,11 @@ export class UserComponent extends Component {
             <a href="/#/list">Back</a>
         </article>`
         node.insertAdjacentHTML('beforeend', html)
+        
+        this.onEvent('click', '.face', e => {
+            let utterThis = new SpeechSynthesisUtterance(usr.name);
+            window.speechSynthesis.speak(utterThis)
+        })
     }
 
     onDestroy() {

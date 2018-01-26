@@ -2,9 +2,10 @@ import {Router} from './router';
 import {ListComponent} from './list/list.component';
 import {UserComponent} from './user/user.component';
 import {listGuard} from './list-guard'
+import {app} from './init'
 
 export const APP_ROUTER = new Router(
-    document.querySelector('#router-outlet'),
+    app.rootNode,
     [
         {
             path: "",
@@ -27,5 +28,6 @@ export const APP_ROUTER = new Router(
         //     component: AssessmentComponent,
         //     canActivate: listGuard
         // },
-    ]
+    ],
+    app
 )

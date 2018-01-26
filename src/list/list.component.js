@@ -4,8 +4,8 @@ import {users} from '../store/store.js';
 
 
 export class ListComponent extends Component {
-    constructor(template) {
-        super(template)
+    constructor(conf) {
+        super(conf)
     }
 
     onInit() {
