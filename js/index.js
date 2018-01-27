@@ -9091,7 +9091,7 @@
 	            console.log("ListComponent", "Init");
 	            var node = document.querySelector("[data-users]");
 	            var html = _storeStoreJs.users.reduce(function (acc, usr) {
-	                return acc += '<article>\n                    <img src="' + usr.picture + '">\n                    <h3><b>#' + usr.index + '</b>' + usr.name + '</h3>\n                    <a href="/#/user/' + usr.index + '">Details</a>\n                </article>';
+	                return acc += '<article>\n                    <img src="' + usr.picture + '">\n                    <h3><b>#' + usr.index + '</b>' + usr.name + '</h3>\n                    <a href="/NativeSPAExample/#/user/' + usr.index + '">Details</a>\n                </article>';
 	            }, "");
 	            node.insertAdjacentHTML('beforeend', html);
 	        }
@@ -9419,7 +9419,7 @@
 	            });
 	            var html = '\n        <article>\n            <img class="face" src="' + usr.picture + '">\n            <table>\n                <tbody>\n                    <tr>\n                        <th>Name:</th>\n                        <td>' + usr.name + '</td>\n                    </tr>\n                    <tr>\n                        <th>Age:</th>\n                        <td>' + usr.age + '</td>\n                    </tr>\n                    <tr>\n                        <th>Gender:</th>\n                        <td>' + usr.gender + '</td>\n                    </tr>\n                    <tr>\n                        <th>Company:</th>\n                        <td>' + usr.company + '</td>\n                    </tr>\n                    <tr>\n                    <th>Favorite fruit:</th>\n                        <td>' + usr.favoriteFruit + '</td>\n                    </tr>\n                    <tr>\n                        <th>Tags:</th>\n                        <td>' + usr.tags.map(function (tag) {
 	                return "#" + tag;
-	            }).join(", ") + '</td>\n                    </tr>\n                </tbody>\n            </table>\n            <p>\n                <span>About:</span>\n                ' + usr.about + '\n            </p>\n            <p>\n                <span>Registered:</span>\n                ' + usr.registered.slice(0, 10) + '\n            </p>\n            <a href="/#/list">Back</a>\n        </article>';
+	            }).join(", ") + '</td>\n                    </tr>\n                </tbody>\n            </table>\n            <p>\n                <span>About:</span>\n                ' + usr.about + '\n            </p>\n            <p>\n                <span>Registered:</span>\n                ' + usr.registered.slice(0, 10) + '\n            </p>\n            <a href="/NativeSPAExample/#/list">Back</a>\n        </article>';
 	            node.insertAdjacentHTML('beforeend', html);
 	
 	            this.onEvent('click', '.face', function (e) {
