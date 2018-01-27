@@ -13,7 +13,7 @@ module.exports = {
   entry: ['babel-polyfill', './src/main.js'],
 
   output: {
-    path: '../build',
+    path: './build',
     filename: 'js/index.js'
   },
 

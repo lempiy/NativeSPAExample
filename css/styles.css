@@ -1,0 +1,195 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain) */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.list {
+  text-align: center;
+}
+
+.list h1 {
+  font-size: 50px;
+  margin: 20px 0;
+  color: #faa211;
+}
+
+.list section {
+  padding: 0 15px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.list section article {
+  width: 300px;
+  height: 420px;
+  border: 2px solid #12823e;
+  background-color: #83fcb2;
+  margin: 20px;
+  border-radius: 5px;
+  color: #12823e;
+}
+
+.list section article img {
+  width: 260px;
+  height: 260px;
+  border-radius: 100%;
+  border: 2px solid #12823e;
+  margin: 20px 0;
+}
+
+.list section article h3 {
+  text-transform: uppercase;
+  font-size: 22px;
+  letter-spacing: 1px;
+}
+
+.list section article h3 b {
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.list section article a {
+  margin: 0 auto;
+  margin-top: 20px;
+  display: block;
+  text-decoration: none;
+  width: 80px;
+  height: 40px;
+  line-height: 40px;
+  color: #12823e;
+  border: 2px solid #12823e;
+  background-color: #faa211;
+  transition: background-color .3s;
+  padding: 0 10px;
+  border-radius: 5px;
+}
+
+.list section article a:hover {
+  background-color: #fbb322;
+}
+
+.list section article a:visited {
+  color: #12823e;
+}
+
+.user {
+  text-align: center;
+}
+
+.user img {
+  margin: 20px 0;
+  -webkit-clip-path: polygon(50% 0%, 83% 12%, 100% 43%, 94% 78%, 68% 100%, 32% 100%, 6% 78%, 0% 43%, 17% 12%);
+          clip-path: polygon(50% 0%, 83% 12%, 100% 43%, 94% 78%, 68% 100%, 32% 100%, 6% 78%, 0% 43%, 17% 12%);
+}
+
+.user table {
+  border-collapse: collapse;
+  margin: 20px auto;
+}
+
+.user table, .user th, .user td {
+  border: 1px solid black;
+}
+
+.user th, .user td {
+  padding: 5px;
+}
+
+.user p {
+  max-width: 630px;
+  text-align: justify;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.user p span {
+  font-weight: bold;
+}
+
+.user a {
+  margin: 0 auto;
+  margin-top: 20px;
+  display: block;
+  text-decoration: none;
+  width: 80px;
+  height: 40px;
+  line-height: 40px;
+  color: #12823e;
+  border: 2px solid #12823e;
+  background-color: #faa211;
+  transition: background-color .3s;
+  padding: 0 10px;
+  border-radius: 5px;
+}
+
+.user a:hover {
+  background-color: #fbb322;
+}
+
+.user a:visited {
+  color: #12823e;
+}
+
+.text-center {
+  text-align: center;
+}
+
+body {
+  margin: 0;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  width: 100%;
+}
+
+/*# sourceMappingURL=styles.css.map*/
