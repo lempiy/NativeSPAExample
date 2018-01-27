@@ -16,7 +16,7 @@ export class ListComponent extends Component {
                 `<article>
                     <img src="${usr.picture}">
                     <h3><b>#${usr.index}</b>${usr.name}</h3>
-                    <a href="#/user/${usr.index}">Details</a>
+                    <a href="/NativeSPAExample/#/user/${usr.index}">Details</a>
                 </article>`
         }, "")
         node.insertAdjacentHTML('beforeend', html)
