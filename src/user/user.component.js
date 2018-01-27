@@ -52,7 +52,7 @@ export class UserComponent extends Component {
                 <span>Registered:</span>
                 ${usr.registered.slice(0, 10)}
             </p>
-            <a href="/#/list">Back</a>
+            <a href="#/list">Back</a>
         </article>`
         node.insertAdjacentHTML('beforeend', html)
         
