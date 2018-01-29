@@ -1,4 +1,4 @@
-export const users = [
+export var users = [
     {
         "index": 1,
         "guid": "7b079822-779a-4fe7-a4a4-7d71776f623c",

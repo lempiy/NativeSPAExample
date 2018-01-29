@@ -1,3 +1,3 @@
 import {App} from './app';
 
-export const app = new App(document.querySelector('#router-outlet'));
+export var app = new App(document.querySelector('#router-outlet'));
