@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>List</title>
+</head>
+<body>
+    <main id="router-outlet">
+        <!-- Page Content goes HERE! -->
+    </main>
+    <template x-components>
+        <%=require('./components/list/list.html')()%>
+        <%=require('./components/user/user.html')()%>
+        <%=require('./components/greetings/greetings.html')()%>
+    </template>
+</body>
+</html>

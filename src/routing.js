@@ -1,11 +1,9 @@
-import {Router} from './router';
-import {ListComponent} from './list/list.component';
-import {UserComponent} from './user/user.component';
+import {Router} from './core/router';
+import {ListComponent} from './components/list/list.component';
+import {UserComponent} from './components/user/user.component';
 import {listGuard} from './list-guard'
-import {app} from './init'
 
 export const APP_ROUTER = new Router(
-    app.rootNode,
     [
         {
             path: "",
@@ -22,12 +20,5 @@ export const APP_ROUTER = new Router(
             component: UserComponent,
             canActivate: listGuard
         }
-        // {
-        //     id: "Assessment",
-        //     path: "/assessment/:id/:store_id",
-        //     component: AssessmentComponent,
-        //     canActivate: listGuard
-        // },
-    ],
-    app
+    ]
 )

@@ -1,32 +1,30 @@
-/*
-map = [
-    {
-        path: 'any',
-        component: Component,
-        id: ComponentId:string,
-        canActivate: function(params):boolean
-    }
-]
-*/
+import {Detector} from './change.detection'
+
 export class Router {
-    constructor(outlet, map, app) {
-        this.outlet = outlet
+    constructor(map) {
         this.map = map
-        this.app = app
     }
-    map
-    hash
-    currentRoute
-    outlet
+    setOutlet(node) {
+        this.outlet = node
+    }
+    setTools(em, templateProvider, parser) {
+        this.em = em
+        this.templateProvider = templateProvider
+        this.parser = parser
+    }
     init() {
+        if (!this.outlet) throw new Error('No root node provided, call setOutlet(node) before initialication.');
+        if (!this.em || !this.templateProvider) throw new Error('No event manager and/or template resolver provided, call setTools(em) before initialication.');
+        if (!this.parser) throw new Error('No parser provided, call setTools before initialication.');
         this.hash = window.location.hash;
         this.map.forEach(route => {
             if (route.component) {
-                route.component = new route.component({
-                    template: document.querySelector('#'+route.id), 
-                    app: this.app, 
+                route.component = Detector.proxy(new route.component({
+                    eventManager: this.em,
+                    parser: this.parser,
+                    templateProvider: this.templateProvider,
                     id: route.id
-                })
+                }))
             }
             let levels = route.path.split("/")
             if (!levels[0] && levels.length > 1) {
@@ -76,6 +74,7 @@ export class Router {
             }
             this.currentRoute = route
             window.document.title = this.currentRoute.id
+            window.c = (route.component)
             route.component.init(this.outlet)
         } else {
             this.navigate("")

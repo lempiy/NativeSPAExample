@@ -1,10 +1,11 @@
-import {Component} from '../component.js'
-import {APP_ROUTER} from '../routing.js'
-import {users} from '../store/store.js';
+import {Component} from '../../core/component.js'
+import {APP_ROUTER} from '../../routing.js'
+import {users} from '../../store/store.js';
 
 
 export class UserComponent extends Component {
     constructor(conf) {
+        conf.tag = 'app-user'
         super(conf)
     }
 

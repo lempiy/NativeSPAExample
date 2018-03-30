@@ -6,6 +6,7 @@ var autoprefixer = require('autoprefixer');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var styleLintPlugin = require('stylelint-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 require('es6-promise').polyfill();
 
@@ -25,7 +26,10 @@ module.exports = {
           from: 'assets',
           to: 'assets'
         }
-    ])
+    ]),
+    new HtmlWebpackPlugin({
+      template: 'src/index.html'
+    })
   ],
 
   module: {
@@ -41,6 +45,10 @@ module.exports = {
           'style-loader',
           'css-loader!postcss!sass-loader?outputStyle=expanded'
         )
+      },
+      {
+        test: /(\.tpl|\.html)$/,
+        loader: 'lodash-template-webpack',
       },
       {
         test: /\.css$/, 

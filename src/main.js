@@ -1,7 +1,7 @@
 'use strict';
 require('./main.sass');
-require('file?name=[name].[ext]!../index.html');
-
 import {APP_ROUTER} from './routing';
+import {App} from './core/app';
 
-APP_ROUTER.init();
+let app = new App(document.querySelector('#router-outlet'), APP_ROUTER);
+app.start();
