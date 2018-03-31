@@ -1,71 +1,62 @@
-export class Detector {
-    static proxy(context) {
-        return new Proxy(context, context.getContextHandler())
-    }
-}
-
-const getHandler = (ctx, rootName) => ({
-    get: (target, name) => {
-        if(name in target) {
-            return name[target]
-        }
-        if(ctx[name] !== undefined) {
-            return ctx[name]
-        }
-        return undefined
-    },
-    set: (target, name, value) => {
-        if (typeof value === "object") {
-            target[name] = new Proxy(value, getHandler(ctx, rootName))
-        } else {
-            target[name] = value
-        }
-        ctx._change(target, rootName, value)
-        return true
-    }
-})
-
 export class Context {
     constructor(parent, parser) {
         this._parent = parent;
         this._childs = [];
         this._resolvers = {};
-        const self = this;
-        this._handler = {
-            get: (target, name) => {
-                if(name in target) {
-                    return target[name]
+    }
+
+    getHandler(rootProp) {
+        let self = this;
+        return {
+            get(target, property, receiver) {
+                try {
+                    if (target[property] instanceof Element) return target[property];
+                    return new Proxy(target[property], self.getHandler(rootProp || property));
+                } catch (err) {
+                    return Reflect.get(target, property, receiver)
                 }
-                if(this._parent && this._parent[name] !== undefined) {
-                    return this._parent[name]
-                }
-                return undefined
             },
-            set: (target, name, value) => {
-                console.log(target, name, value)
-                if (typeof value === "object") {
-                    target[name] = new Proxy(value, getHandler(self, name))
-                } else {
-                    target[name] = value
-                }
-                self._change(target, name, value)
+            defineProperty(target, property, descriptor) {
+                Reflect.defineProperty(target, property, descriptor);
+                self._change(target, rootProp || property);
+                return true
+            },
+            deleteProperty(target, property) {
+                Reflect.deleteProperty(target, property);
+                self._change(target, rootProp || property);
                 return true
             }
         }
     }
 
-    getContextHandler() {
-        return this._handler
+    toProxy() {
+        return new Proxy(this, this.getHandler());
     }
 
-    _bindView(propName, resolver) {
+    addChildContext(ctx) {
+        this._childs.push(ctx)
+    }
+
+    removeChildContext(ctx) {
+        let index = this._childs.findIndex(cx === ctx)
+        if (index === -1) return
+        this._childs.splice(index, 1)
+    }
+
+    clearContext() {
+        this._childs = [];
+        this._resolvers = {};
+    }
+
+    _bindView(propName, resolver) {        
         this._resolvers[propName] = this._resolvers[propName] ? 
-        this._resolvers[propName].concat([resolver]) : 
+        [resolver].concat(this._resolvers[propName]) : 
         [resolver];
     }
 
     _change(target, name, value) {
         if (this._resolvers[name]) {
+            console.log(this._resolvers)
             this._resolvers[name].forEach(resolver => {
                 resolver(name)
             })

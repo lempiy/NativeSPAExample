@@ -9,6 +9,5 @@ export class ClickResolver {
     resolve(component, element) {
         let expr = element.getAttribute(this.syntaxAttr);
         let value = extractFunction(expr);
-        console.log(value);
     }
 }

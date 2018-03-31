@@ -1,9 +1,9 @@
 import {recognizeValue, getNestedValue} from './helpers'
 
-export class TextResolver {
+export class SrcResolver {
     constructor(parser) {
         this.parser = parser;
-        this.syntaxAttr = '@text'
+        this.syntaxAttr = '@srcpath'
     }
 
     resolve(context, element) {
@@ -12,7 +12,7 @@ export class TextResolver {
         let resolver;
         switch (value.type) {
             case 'ref':
-                resolver = () => {element.textContent = context[value.value]}
+                resolver = () => {element.src = context[value.value]}
                 resolver()
                 
                 context._bindView(value.value, resolver)
@@ -22,13 +22,13 @@ export class TextResolver {
                 resolver = () => {
                     let val = getNestedValue(context, value.value).value
                     
-                    element.textContent = val
+                    element.src = val
                 }
                 resolver()
                 context._bindView(data.firstKey, resolver)
                 break
             default:
-                element.textContent = value.value
+                element.src = value.value
                 break
         }
     }

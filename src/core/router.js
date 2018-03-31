@@ -1,5 +1,3 @@
-import {Detector} from './change.detection'
-
 export class Router {
     constructor(map) {
         this.map = map
@@ -19,12 +17,12 @@ export class Router {
         this.hash = window.location.hash;
         this.map.forEach(route => {
             if (route.component) {
-                route.component = Detector.proxy(new route.component({
+                route.instance = new route.component({
                     eventManager: this.em,
                     parser: this.parser,
                     templateProvider: this.templateProvider,
                     id: route.id
-                }))
+                }).toProxy();
             }
             let levels = route.path.split("/")
             if (!levels[0] && levels.length > 1) {
@@ -69,13 +67,19 @@ export class Router {
                 return this.navigate(route.redirectTo)
             }
             if (this.currentRoute) {
-                this.currentRoute.component.destroy(this.outlet)
+                this.currentRoute.instance.destroy(this.outlet)
                 this.currentRoute.params = {}
             }
             this.currentRoute = route
+            window.scrollY = 0;
             window.document.title = this.currentRoute.id
-            window.c = (route.component)
-            route.component.init(this.outlet)
+            route.instance = new route.component({
+                eventManager: this.em,
+                parser: this.parser,
+                templateProvider: this.templateProvider,
+                id: route.id
+            }).toProxy();
+            route.instance.init(this.outlet)
         } else {
             this.navigate("")
         }

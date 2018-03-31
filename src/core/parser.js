@@ -4,7 +4,6 @@ export class Parser {
     constructor(eventManager, templateProvider) {
         this.eventManager = eventManager;
         this.templateProvider = templateProvider;
-        console.log(resolvers)
         this.resolvers = resolvers.map(Resolver => new Resolver(this)).reduce((acc,resolver) => {
             acc[resolver.syntaxAttr] = resolver;
             return acc

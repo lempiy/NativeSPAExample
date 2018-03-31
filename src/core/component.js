@@ -35,8 +35,9 @@ export class Component extends Context {
     }
 
     destroy(baseNode) {
-        baseNode.innerHTML = ""
+        baseNode.removeChild(baseNode.firstElementChild)
         this._eventManager.clearComponentEvents(this.id)
+        this.clearContext()
         return this.onDestroy && this.onDestroy()
     }
 }
