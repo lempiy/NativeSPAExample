@@ -3,10 +3,10 @@
         <div class="list">
             <h1 @text='hello'>List of Users</h1>
             <section>
-                <article @for='for (i, item) of users'>
+                <article @for='let (i, item) of users'>
                     <template>
                         <h2 @text='item.balance'></h2>
-                        <img @srcpath="item.picture" alt="">
+                        <img @srcpath="item.picture" @click='handler(item)' alt="">
                         <h3 @text='item.name'><b @text='item.index'></b></h3>
                         <a href="/#/user/1">Details</a>
                     </template>

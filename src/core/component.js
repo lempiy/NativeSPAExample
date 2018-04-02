@@ -20,10 +20,6 @@ export class Component extends Context {
 
     extractMatches() {}
 
-    onEvent(eventName, selector, callback) {
-        this._eventManager.registerEvent(eventName, this.id, selector, callback)
-    }
-
     init(baseNode) {
         this.beforeInit()
         let main = document.createElement(this.template.tagName);

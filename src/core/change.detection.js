@@ -10,9 +10,17 @@ export class Context {
         return {
             get(target, property, receiver) {
                 try {
-                    if (target[property] instanceof Element) return target[property];
+                    if (typeof target[property] === "function") {
+                        let val = Reflect.get(target, property, receiver)
+                        val = val.bind(target);
+                        return val
+                    }
+                    if (
+                        target[property] instanceof Element
+                    ) return target[property];
                     return new Proxy(target[property], self.getHandler(rootProp || property));
                 } catch (err) {
+                    
                     return Reflect.get(target, property, receiver)
                 }
             },

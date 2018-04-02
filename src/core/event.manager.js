@@ -4,7 +4,7 @@ export class EventManager {
         this.router = config.router;
         this._eventMap = {};
     }
-    registerEvent(eventName, componentId, elementSelector, callback) {
+    registerEvent(eventName, componentId, element, callback) {
         if (!this._eventMap[eventName]) {
             this.rootNode.addEventListener(eventName, (e) => {
                 this._delegete(e)
@@ -12,9 +12,9 @@ export class EventManager {
             this._eventMap[eventName] = {}
         }
         if (!this._eventMap[eventName][componentId]) {
-            this._eventMap[eventName][componentId] = {}
+            this._eventMap[eventName][componentId] = new WeakMap();
         }
-        this._eventMap[eventName][componentId][elementSelector] = callback
+        this._eventMap[eventName][componentId].set(element, callback)
     }
     _delegete(event) {
         let target = event.target
@@ -23,9 +23,9 @@ export class EventManager {
         const eventMap = this._eventMap[event.type][id]
         while(target) {
             if (target === this.rootNode) return
-            const key = Object.keys(eventMap).find(key => target.matches(key))
-            if (key) {
-                eventMap[key](event)
+            let func = eventMap.get(target)
+            if (func) {
+                func(event)
             }
             target = target.parentNode
         }

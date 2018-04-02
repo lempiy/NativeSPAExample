@@ -1,6 +1,6 @@
 const funcRegExp = /\s*([$A-Z_][0-9A-Z_$]*)\((.*)\)/i;
 const identRegExp = /^[$A-Z_][0-9A-Z_$]*$/i;
-const forRegExp = /^\s*for\s+(\(?\s*[[$A-Z_][0-9A-Z_$]*(?:\s*\,\s*[a-zA-Z][a-zA-Z0-9]*)?\s*\)?)\s+of\s+([a-zA-Z][a-zA-Z0-9]*(?:\.[a-zA-Z][a-zA-Z0-9]*)*(?:\(\))?)\s*$/i;
+const forRegExp = /^\s*let\s+(\(?\s*[[$A-Z_][0-9A-Z_$]*(?:\s*\,\s*[a-zA-Z][a-zA-Z0-9]*)?\s*\)?)\s+of\s+([a-zA-Z][a-zA-Z0-9]*(?:\.[a-zA-Z][a-zA-Z0-9]*)*(?:\(\))?)\s*$/i;
 
 
 export const extractFunction = (expr) => {
@@ -57,16 +57,30 @@ export const getValue = (obj, value) => {
         case 'nested-ref':
             return getNestedValue(obj, value.value)
         case 'ref':
-            return {key: value.value, value: obj[value.value]}
+            return {key: value.value, value: findInParent(obj, value.value)}
         default:
             return null
     }
-    return {key: value.value, value: obj[value]}
+    return {key: value.value, value: findInParent(obj, value)}
+}
+
+const findInParent = (ctx, prop) => {
+    if (!ctx) return null
+    if (ctx[prop]) {
+        return ctx[prop]
+    }
+    return findInParent(ctx._parent, prop)
 }
 
 export const getNestedValue = (obj, value) => {
     let values = value.split(/\s*\.\s*/i);
-    return {value: values.reduce((acc, key) => acc[key], obj), firstKey: values[0]}
+    let firstKey = values[0];
+    let ctx = obj;
+    while (ctx) {
+        if (ctx[firstKey]) break
+        ctx = ctx._parent
+    }
+    return {value: values.reduce((acc, key) => acc[key], ctx), firstKey: values[0]}
 }
 
 export const recognizeValue = (value) => {

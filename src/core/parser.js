@@ -13,19 +13,17 @@ export class Parser {
 
     parse(component, element) {
         Array.from(element.children).forEach(child => {
-            let resolver = this._findResolver(child);
-            if (resolver) resolver.resolve(component, child);
+            let resolvers = this._findResolvers(child);
+            resolvers.forEach(resolver => {
+                resolver.resolve(component, child);
+            })
             
             if (child.children.length) this.parse(component, child);
         })
     }
 
-    _findResolver(element) {
-        let key = this.resolverKeys.find(key => element.hasAttribute(key))
-        
-        if (key) {
-            return this.resolvers[key]
-        }
-        return null
+    _findResolvers(element) {
+        return this.resolverKeys.filter(key => element.hasAttribute(key))
+            .map(key => this.resolvers[key])
     }
 }

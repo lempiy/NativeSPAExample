@@ -56,11 +56,6 @@ export class UserComponent extends Component {
             <a href="/#/list">Back</a>
         </article>`
         node.insertAdjacentHTML('beforeend', html)
-        
-        this.onEvent('click', '.face', e => {
-            let utterThis = new SpeechSynthesisUtterance(usr.name);
-            window.speechSynthesis.speak(utterThis)
-        })
     }
 
     onDestroy() {
